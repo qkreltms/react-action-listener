@@ -65,7 +65,7 @@ Creates the middleware you can pass into Redux.
 *Returns* `middleware: Function`
 
 ### `middleware.addListener(actionType, listener)`
-Binds `listener` function for each `actionType` dispatched to the redux store.
+Binds `listener` function for each `actionType` dispatched to the redux store. *It will not allow duplicated listener.
 
 - `actionType: String | Array` The action type or an array of action types to match.
 - `listener: Function(dispatch, action)` The function which will be called when an action of specified types is dispatched. Will receive `dispatch` and `action` as arguments to dispatch new actions and read the action being dispatched.
@@ -75,5 +75,7 @@ Binds `listener` function for each `actionType` dispatched to the redux store.
 - `actionType: String | Array` Same as `.addListener`.
 - `...listeners: Array<Function(dispatch, action)>` Same as `.addListener`, but now a list of multiple listeners.
 
+### `middleware.deleteAll()`
+Deleted all registed listeners.
 ## License
 MIT
