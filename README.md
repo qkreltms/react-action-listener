@@ -76,6 +76,6 @@ Binds `listener` function for each `actionType` dispatched to the redux store. *
 - `...listeners: Array<Function(dispatch, action)>` Same as `.addListener`, but now a list of multiple listeners.
 
 ### `middleware.deleteAll()`
-Deleted all registed listeners.
+Delete all registed listeners.
 ## License
 MIT
