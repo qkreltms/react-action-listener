@@ -8,7 +8,7 @@ function createListener(type, listener) {
 export function createMiddleware() {
   const listeners = [];
 
-  const middleware = (store) =>  {
+  const middleware = (store) => {
     const dispatchImmediate = (...args) => {
       setTimeout(() => store.dispatch(...args), 0);
     };
@@ -29,7 +29,7 @@ export function createMiddleware() {
 
           return false;
         })
-        .map(listener => listener.listener(dispatchImmediate, action));
+        .map((listener) => listener.listener(dispatchImmediate, action));
 
       // continue middleware chain
       next(action);
@@ -37,11 +37,26 @@ export function createMiddleware() {
   };
 
   middleware.addListener = (type, listener) => {
+    for (let i = 0; i < listeners.length; i += 1) {
+      if (listeners[i].type === type) {
+        return;
+      }
+    }
     listeners.push(createListener(type, listener));
   };
 
   middleware.addListeners = (type, ...listeners) => {
-    listeners.map(listener => middleware.addListener(type, listener));
+    listeners.map((listener) => middleware.addListener(type, listener));
+  };
+
+  middleware.getListeners = () => {
+    return listeners;
+  };
+
+  middleware.deleteAll = () => {
+    while (listeners.length) {
+      listeners.pop();
+    }
   };
 
   return middleware;
