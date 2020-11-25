@@ -6,7 +6,7 @@
 Redux middleware which allows listening in on and handling of dispatched actions
 
 ```
-npm install --save redux-listeners
+npm install --save redux-listeners-qkreltms
 ```
 
 ## Who needs this?
