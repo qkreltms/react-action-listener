@@ -1,6 +1,6 @@
 {
-  "name": "redux-listeners",
-  "version": "0.4.1",
+  "name": "redux-listeners-qkreltms",
+  "version": "0.4.2",
   "description": "Redux middleware which allows listening in on and handling of dispatched actions",
   "main": "lib/listenerMiddleware.js",
   "typings": "src/listenerMiddleware.d.ts",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Gaya/redux-listeners.git"
+    "url": "git+https://github.com/qkreltms/redux-listeners"
   },
   "keywords": [
     "redux",
@@ -30,11 +30,18 @@
     "redux-middleware"
   ],
   "author": "Gaya Kessler <gaya@theclevernode.com> (https://theclevernode.com)",
+  "contributors": [
+    {
+      "name": "Jeong Hoon Park",
+      "email": "junghooncentralpark@gmail.com",
+      "url": "https://github.com/qkreltms/"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Gaya/redux-listeners/issues"
+    "url": "https://github.com/qkreltms/redux-listeners/issues"
   },
-  "homepage": "https://github.com/Gaya/redux-listeners#readme",
+  "homepage": "https://github.com/qkreltms/redux-listeners#readme",
   "dependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
