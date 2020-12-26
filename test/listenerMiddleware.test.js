@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import { createMiddleware } from '../../lib/listenerMiddleware';
+import { createMiddleware } from '../lib/listenerMiddleware';
 
 const mockStore = {
   dispatch() {},

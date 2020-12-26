@@ -17,7 +17,7 @@
     "typecheck:watch": "npm run type-check -- --watch",
     "clean": "rimraf lib",
     "build": "babel src --out-dir lib && npx tsc",
-    "test": "tape -r @babel/register test/listenerMiddleware.js",
+    "test": "tape -r @babel/register test/listenerMiddleware.test.js",
     "lint": "eslint src/** --fix",
     "lint:p": "prettier --write .\\src\\"
   },
