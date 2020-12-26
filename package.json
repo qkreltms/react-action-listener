@@ -17,7 +17,20 @@
     "typecheck:watch": "npm run type-check -- --watch",
     "clean": "rimraf lib",
     "build": "babel src --out-dir lib && npx tsc",
-    "test": "tape -r @babel/register test/listenerMiddleware.js"
+    "test": "tape -r @babel/register test/listenerMiddleware.js",
+    "lint": "eslint src/** --fix",
+    "lint:p": "prettier --write .\\src\\"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "yarn lint",
+      "yarn lint:p"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "repository": {
     "type": "git",
@@ -51,6 +64,18 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-typescript": "^7.12.7",
     "@babel/register": "^7.12.10",
+    "@typescript-eslint/eslint-plugin": "^4.11.0",
+    "@typescript-eslint/parser": "^4.11.0",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "tape": "^5.0.1",
     "typescript": "^4.1.3"
