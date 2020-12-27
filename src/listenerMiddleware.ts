@@ -1,21 +1,12 @@
 import { AnyAction, Dispatch, Store } from 'redux';
 
-type ActionType = string;
+type ActionType = string | Array<string>;
 interface Listener {
-  (dispatch: Dispatch, action: AnyAction): void;
+  (dispatch?: Dispatch, action?: AnyAction): void;
 }
 interface ListenerTemplate {
   type: ActionType;
   listener: Listener;
-}
-function createListener(
-  type: ActionType,
-  listener: Listener
-): ListenerTemplate {
-  return {
-    type,
-    listener,
-  };
 }
 
 export default function createMiddleware() {
@@ -30,6 +21,11 @@ export default function createMiddleware() {
           return true;
         }
 
+        // then check if listener type is array and has action.type
+        if (type.constructor === Array && type.indexOf(action.type) > -1) {
+          return true;
+        }
+
         return false;
       })
       .map((listener) => listener.listener(store.dispatch, action));
@@ -39,7 +35,7 @@ export default function createMiddleware() {
   };
 
   middleware.addListener = (type: ActionType, listener: Listener) => {
-    listeners.push(createListener(type, listener));
+    listeners.push({ type, listener });
   };
 
   return middleware;
