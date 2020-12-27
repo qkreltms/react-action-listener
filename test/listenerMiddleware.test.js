@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import { createMiddleware } from '../lib/listenerMiddleware';
+import createMiddleware from '../lib/listenerMiddleware';
 
 const mockStore = {
   dispatch() {},
@@ -20,60 +20,24 @@ test('Creating middleware', (t) => {
     'function',
     'Should have addListener function'
   );
-  t.equal(
-    typeof listenMiddleware.addListeners,
-    'function',
-    'Should have addListeners function'
-  );
 
   t.end();
 });
 
-test('Ability to register listeners', (t) => {
+test('Allow duplicated listener', (t) => {
   const listenMiddleware = createMiddleware();
 
-  let changeThis = '';
-  let changeThat = '';
-
+  let cnt = 0;
   listenMiddleware.addListener('TEST', () => {
-    changeThis = 'Hello';
+    cnt += 1;
   });
-  listenMiddleware.addListener('TEST2', () => {
-    changeThat = 'Testing';
+  listenMiddleware.addListener('TEST', () => {
+    cnt += 1;
   });
 
   const middleware = listenMiddleware(mockStore)(() => {});
   middleware({ type: 'TEST' });
-  middleware({ type: 'TEST2' });
-
-  t.equal(changeThis, 'Hello', 'Run listener after a dispatch');
-  t.equal(changeThat, 'Testing', 'Run second listener after a dispatch');
-
-  t.end();
-});
-
-test('Ability to register multiple listeners at once', (t) => {
-  const listenMiddleware = createMiddleware();
-
-  let changeThis = '';
-  let changeThat = '';
-
-  listenMiddleware.addListeners(
-    'TEST',
-    () => {
-      changeThis = 'Hello';
-    },
-    () => {
-      changeThat = 'Testing';
-    }
-  );
-
-  const middleware = listenMiddleware(mockStore)(() => {});
-  middleware({ type: 'TEST' });
-
-  t.equal(changeThis, 'Hello', 'Run listener after a dispatch');
-  t.equal(changeThat, '', 'Run second listener after a dispatch');
-
+  t.equal(cnt, 2);
   t.end();
 });
 
@@ -97,9 +61,7 @@ test('Ability to register multiple action types', (t) => {
   t.end();
 });
 
-test('Actions will be dispatched afterwards', (t) => {
-  t.plan(4);
-
+test('Dispatch an action in other listener', (t) => {
   const listenMiddleware = createMiddleware();
 
   let increment = 0;
@@ -109,54 +71,23 @@ test('Actions will be dispatched afterwards', (t) => {
 
     increment += 1;
 
+    // dispatch function of dispatchableStore
     dispatch({ type: 'ANOTHER' });
   });
 
   const dispatchableStore = {
     dispatch(action) {
-      t.equal(increment, 2, 'After all dispatch to store');
-      t.equal(
-        action.type,
-        'ANOTHER',
-        'After all dispatch to store with the correct type'
-      );
+      t.equal(increment, 1);
+      t.equal(action.type, 'ANOTHER');
+
+      increment += 1;
     },
   };
 
-  const middleware = listenMiddleware(dispatchableStore)(() => {
-    t.equal(increment, 1, 'Call next middleware after listeners');
-
-    increment += 1;
-  });
+  const next = () =>
+    t.equal(increment, 2, 'Call next middleware after listeners');
+  const middleware = listenMiddleware(dispatchableStore)(next);
 
   middleware({ type: 'TEST' });
-});
-
-test('Do not allow duplicated listener', (t) => {
-  const listenMiddleware = createMiddleware();
-
-  let cnt = 0;
-  listenMiddleware.addListener('TEST', () => {
-    cnt = 1;
-  });
-  listenMiddleware.addListener('TEST', () => {
-    cnt = 2;
-  });
-
-  const middleware = listenMiddleware(mockStore)(() => {});
-  middleware({ type: 'TEST' });
-  t.equal(cnt, 1);
-  t.end();
-});
-
-test('Should delete all registed listeners', (t) => {
-  const listenMiddleware = createMiddleware();
-
-  listenMiddleware.addListener('TEST', () => {});
-  listenMiddleware.addListener('TEST2', () => {});
-
-  listenMiddleware(mockStore)(() => {});
-  listenMiddleware.deleteAll();
-  t.looseEqual(listenMiddleware.getListeners(), []);
   t.end();
 });
