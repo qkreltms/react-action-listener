@@ -1,30 +1,17 @@
-import test from 'tape';
-
 import createMiddleware from '../lib/listenerMiddleware';
 
 const mockStore = {
   dispatch() {},
 };
 
-test('Creating middleware', (t) => {
+test('Creating middleware and type check', () => {
   const listenMiddleware = createMiddleware();
+  expect(typeof listenMiddleware).toBe("function")
+  expect(typeof listenMiddleware()).toBe('function')
+  expect(typeof listenMiddleware.addListener).toBe('function')
+})
 
-  t.equal(typeof listenMiddleware, 'function', 'Should return a function');
-  t.equal(
-    typeof listenMiddleware(),
-    'function',
-    'Should return a function returning a function'
-  );
-  t.equal(
-    typeof listenMiddleware.addListener,
-    'function',
-    'Should have addListener function'
-  );
-
-  t.end();
-});
-
-test('Allow duplicated listener', (t) => {
+test('Allow duplicated listener', () => {
   const listenMiddleware = createMiddleware();
 
   let cnt = 0;
@@ -37,11 +24,10 @@ test('Allow duplicated listener', (t) => {
 
   const middleware = listenMiddleware(mockStore)(() => {});
   middleware({ type: 'TEST' });
-  t.equal(cnt, 2);
-  t.end();
+  expect(cnt).toBe(2)
 });
 
-test('Ability to register multiple action types', (t) => {
+test('Ability to register multiple action types', () => {
   const listenMiddleware = createMiddleware();
 
   let increment = 0;
@@ -53,21 +39,19 @@ test('Ability to register multiple action types', (t) => {
   const middleware = listenMiddleware(mockStore)(() => {});
 
   middleware({ type: 'TEST' });
-  t.equal(increment, 1, 'Listen to first action type');
+  expect(increment).toBe(1)
 
   middleware({ type: 'ANOTHER' });
-  t.equal(increment, 2, 'Listen to second action type');
-
-  t.end();
+  expect(increment).toBe(2)
 });
 
-test('Dispatch an action in other listener', (t) => {
+test('Dispatch an action in other listener', () => {
   const listenMiddleware = createMiddleware();
 
   let increment = 0;
 
   listenMiddleware.addListener('TEST', (dispatch) => {
-    t.equal(increment, 0, 'First fire listener');
+    expect(increment).toBe(0);
 
     increment += 1;
 
@@ -77,17 +61,16 @@ test('Dispatch an action in other listener', (t) => {
 
   const dispatchableStore = {
     dispatch(action) {
-      t.equal(increment, 1);
-      t.equal(action.type, 'ANOTHER');
+      expect(increment).toBe(1)
+      expect(action.type).toBe('ANOTHER')
 
       increment += 1;
     },
   };
 
   const next = () =>
-    t.equal(increment, 2, 'Call next middleware after listeners');
+    expect(increment).toBe(2)
   const middleware = listenMiddleware(dispatchableStore)(next);
 
   middleware({ type: 'TEST' });
-  t.end();
 });
