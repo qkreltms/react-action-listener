@@ -1,4 +1,12 @@
 {
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "paths": ["src"]
+      }
+    }
+  },
   "env": {
     "browser": true,
     "es2020": true,
@@ -15,6 +23,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "import/extensions": "off"
   }
 }
