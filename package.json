@@ -25,9 +25,6 @@
     "src/**/*.{js,jsx,ts,tsx}": [
       "yarn lint",
       "yarn lint:p"
-    ],
-    "test/**/*.{ts,tsx,js,jsx}": [
-      "yarn test"
     ]
   },
   "husky": {
