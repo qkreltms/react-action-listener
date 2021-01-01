@@ -1,6 +1,7 @@
 import { AnyAction, Dispatch, Store } from 'redux';
+import reactAdapter from './react/adapter';
 
-type ActionType = string | Array<string>;
+export type ActionType = string | Array<string>;
 interface Listener {
   (dispatch?: Dispatch, action?: AnyAction): void;
 }
@@ -9,13 +10,28 @@ interface ListenerTemplate {
   listener: Listener;
 }
 
-export default function createMiddleware() {
-  const listeners: ListenerTemplate[] = [];
+export class ActionHandler {
+  listeners: { [key: string]: ListenerTemplate };
 
+  constructor() {
+    this.listeners = {};
+  }
+
+  addListener = (hash: string, type: ActionType, listener: Listener) => {
+    this.listeners[hash] = { type, listener };
+  };
+
+  removeListener = (hash: string) => {
+    delete this.listeners[hash];
+  };
+}
+
+export default function createMiddleware() {
+  const actionHandler = new ActionHandler();
   const middleware = (store: Store) => (next: Dispatch<AnyAction>) => (
     action: any
   ) => {
-    listeners
+    Object.values(actionHandler.listeners)
       .filter(({ type }) => {
         if (type === action.type) {
           return true;
@@ -34,9 +50,11 @@ export default function createMiddleware() {
     next(action);
   };
 
-  middleware.addListener = (type: ActionType, listener: Listener) => {
-    listeners.push({ type, listener });
-  };
+  middleware.listeners = actionHandler.listeners;
+  middleware.addListener = actionHandler.addListener;
+  middleware.removeListener = actionHandler.removeListener;
+  middleware.actionHandler = actionHandler;
 
+  reactAdapter(middleware.actionHandler);
   return middleware;
 }
