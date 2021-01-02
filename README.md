@@ -16,7 +16,7 @@ import { createMiddleware } from 'redux-action-listener-hook';
 export const store = createStore(
   reduce,
   {},
-  applyMiddleware(createMiddleware(), thunk)
+  applyMiddleware(createMiddleware())
 );
 
 // 2. use hook
