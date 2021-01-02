@@ -8,6 +8,18 @@ const mockNext = (dispatch) => dispatch
 const mockStore = createStore((state, action) => state) 
 const defaultHash = 'TEST'
 
+/**
+ * NOTE:
+ * When createMiddleware() is defined, it affects every test cases,
+ * so you should test wether middleware is attatched on store firstly. 
+ */
+test('Should warn when middleware is not attached on store', () => {
+    const spy = jest.spyOn(console, 'warn').mockImplementation();
+    renderHook(() => useActionListener(['TEST'],  () =>{}))
+    expect(expect(console.warn).toBeCalled())
+    spy.mockRestore();
+})
+
 test('Should listen an action', () => {
     const listenMiddleware = createMiddleware();
     let cnt = 0

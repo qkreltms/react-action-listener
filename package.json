@@ -1,6 +1,6 @@
 {
   "name": "redux-action-listener-hook",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Redux middleware hook which allows listening action and handling of dispatched actions",
   "main": "lib",
   "files": [

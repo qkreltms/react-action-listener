@@ -1,5 +1,8 @@
 import useActionListener from './react/useActionListener';
 import createMiddleware from './listenerMiddleware';
 
-export default useActionListener;
-export { createMiddleware };
+const reduxActionListener: any = {};
+reduxActionListener.useActionListener = useActionListener;
+reduxActionListener.createMiddleware = createMiddleware;
+export default reduxActionListener;
+export { createMiddleware, useActionListener };
