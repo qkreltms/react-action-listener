@@ -8,6 +8,13 @@ const mockNext = (dispatch) => dispatch
 const mockStore = createStore((state, action) => state) 
 const defaultHash = 'TEST'
 
+test('Should throw an error when middleware is not attached on store', () => {
+    const { result } = renderHook(() => useActionListener('TEST',  () =>{}))
+    expect(result.error).toEqual(Error(
+        'middleware is not attached on your store, it will not listen your actions.'
+      ))
+})
+
 test('Should listen an action', () => {
     const listenMiddleware = createMiddleware();
     let cnt = 0

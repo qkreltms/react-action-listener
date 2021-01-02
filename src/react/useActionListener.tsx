@@ -11,6 +11,11 @@ const useActionListener = (
   const cbRef = useRef(cb);
   const hash = getUniqueHash();
   const { actionHandler } = Adapter;
+  if (!actionHandler) {
+    throw new Error(
+      'middleware is not attached on your store, it will not listen your actions.'
+    );
+  }
 
   useEffect(() => {
     cbRef.current = cb;

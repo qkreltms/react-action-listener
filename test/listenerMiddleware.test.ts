@@ -1,19 +1,19 @@
 import { createStore } from 'redux';
 import createMiddleware, { ActionHandler } from '../src/listenerMiddleware';
 
-const mockNext = (dispatch) => dispatch
-const mockStore = createStore((state, action) => state) 
-const defaultHash = 'TEST'
+const mockNext = (dispatch) => dispatch;
+const mockStore = createStore((state, action) => state);
+const defaultHash = 'TEST';
 
 test('Should create middleware and check types', () => {
   const listenMiddleware = createMiddleware();
-  expect(typeof listenMiddleware).toBe("function")
-  expect(typeof listenMiddleware(mockStore)).toBe('function')
-  expect(typeof listenMiddleware.addListener).toBe('function')
-  expect(typeof listenMiddleware.removeListener).toBe('function')
-  expect(typeof listenMiddleware.actionHandler).toBe('object')
-  expect(listenMiddleware.actionHandler instanceof ActionHandler).toBe(true)
-})
+  expect(typeof listenMiddleware).toBe('function');
+  expect(typeof listenMiddleware(mockStore)).toBe('function');
+  expect(typeof listenMiddleware.addListener).toBe('function');
+  expect(typeof listenMiddleware.removeListener).toBe('function');
+  expect(typeof listenMiddleware.actionHandler).toBe('object');
+  expect(listenMiddleware.actionHandler instanceof ActionHandler).toBe(true);
+});
 
 test('Should allow multiple listeners', () => {
   const listenMiddleware = createMiddleware();
@@ -22,13 +22,13 @@ test('Should allow multiple listeners', () => {
   listenMiddleware.addListener(defaultHash, 'TEST', () => {
     cnt += 1;
   });
-  listenMiddleware.addListener(defaultHash+1, 'TEST', () => {
+  listenMiddleware.addListener(defaultHash + 1, 'TEST', () => {
     cnt += 1;
   });
 
   const middleware = listenMiddleware(mockStore)(mockNext);
   middleware({ type: 'TEST' });
-  expect(cnt).toBe(2)
+  expect(cnt).toBe(2);
 });
 
 test('Should listen only registerd action', () => {
@@ -41,7 +41,7 @@ test('Should listen only registerd action', () => {
 
   const middleware = listenMiddleware(mockStore)(mockNext);
   middleware({ type: 'OTHER' });
-  expect(cnt).toBe(0)
+  expect(cnt).toBe(0);
 });
 
 test('Should remove registered listeners', () => {
@@ -51,11 +51,11 @@ test('Should remove registered listeners', () => {
   listenMiddleware.addListener(defaultHash, 'TEST', () => {
     cnt += 1;
   });
-  listenMiddleware.removeListener(defaultHash)
+  listenMiddleware.removeListener(defaultHash);
 
   const middleware = listenMiddleware(mockStore)(mockNext);
   middleware({ type: 'TEST' });
-  expect(cnt).toBe(0)
+  expect(cnt).toBe(0);
 });
 
 test('Should register multiple action types', () => {
@@ -70,10 +70,10 @@ test('Should register multiple action types', () => {
   const middleware = listenMiddleware(mockStore)(mockNext);
 
   middleware({ type: 'TEST' });
-  expect(increment).toBe(1)
+  expect(increment).toBe(1);
 
   middleware({ type: 'ANOTHER' });
-  expect(increment).toBe(2)
+  expect(increment).toBe(2);
 });
 
 test('Should dispatch an action in other listener', () => {
@@ -92,15 +92,14 @@ test('Should dispatch an action in other listener', () => {
 
   const dispatchableStore: any = {
     dispatch(action) {
-      expect(increment).toBe(1)
-      expect(action.type).toBe('ANOTHER')
+      expect(increment).toBe(1);
+      expect(action.type).toBe('ANOTHER');
 
       increment += 1;
     },
   };
 
-  const next: any = () =>
-    expect(increment).toBe(2)
+  const next: any = () => expect(increment).toBe(2);
 
   const middleware = listenMiddleware(dispatchableStore)(next);
 

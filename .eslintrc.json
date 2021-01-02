@@ -24,6 +24,7 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "no-unused-vars": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "no-console": "off"
   }
 }
