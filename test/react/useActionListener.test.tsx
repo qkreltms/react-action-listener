@@ -1,8 +1,7 @@
 import React from "react"
 import { renderHook } from '@testing-library/react-hooks'
 import { createStore } from "redux"
-import useActionListener from "../../src/react/useActionListener"
-import createMiddleware from "../../src/listenerMiddleware"
+import { createMiddleware, useActionListener } from "../../src"
 
 const mockNext = (dispatch) => dispatch
 const mockStore = createStore((state, action) => state) 

@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
-import createMiddleware, { ActionHandler } from '../src/listenerMiddleware';
+import { createMiddleware } from '../src';
+import { ActionHandler } from '../src/listenerMiddleware';
 
 const mockNext = (dispatch) => dispatch;
 const mockStore = createStore((state, action) => state);
