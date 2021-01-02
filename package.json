@@ -1,7 +1,7 @@
 {
   "name": "redux-action-listener-hook",
-  "version": "1.0.0",
-  "description": "Redux middleware hook which allows listening in on and handling of dispatched actions",
+  "version": "1.0.1",
+  "description": "Redux middleware hook which allows listening action and handling of dispatched actions",
   "main": "lib",
   "files": [
     "lib",
@@ -16,7 +16,8 @@
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "npm run type-check -- --watch",
     "clean": "rimraf lib coverage",
-    "build": "babel src --out-dir lib --extensions \".ts,.tsx,js,jsx\"",
+    "build:p": "tsc --declarationDir lib --emitDeclarationOnly",
+    "build": "babel src --out-dir lib --extensions \".ts,.tsx,js,jsx\" && yarn build:p",
     "test": "jest --watch",
     "test:c": "jest --coverage",
     "lint": "eslint --ext js,ts,jsx,tsx src test",
