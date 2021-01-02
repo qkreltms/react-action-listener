@@ -13,8 +13,8 @@
     "test": "test"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "typecheck:watch": "npm run type-check -- --watch",
+    "type": "tsc --noEmit",
+    "type:w": "yarn type --watch",
     "clean": "rimraf lib coverage",
     "build:p": "tsc --declarationDir lib --emitDeclarationOnly",
     "build": "babel src --out-dir lib --extensions \".ts,.tsx,js,jsx\" && yarn build:p",

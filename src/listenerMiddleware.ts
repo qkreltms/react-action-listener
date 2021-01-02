@@ -25,8 +25,15 @@ export class ActionHandler {
     delete this.listeners[hash];
   };
 }
+export interface ListenerStore extends ActionHandler {
+  actionHandler: ActionHandler;
+  (store: Store): (next: Dispatch<AnyAction>) => (action: any) => void;
+}
+export interface CreateMiddleware {
+  (): ListenerStore;
+}
 
-export default function createMiddleware() {
+const createMiddleware: CreateMiddleware = () => {
   const actionHandler = new ActionHandler();
   const middleware = (store: Store) => (next: Dispatch<AnyAction>) => (
     action: any
@@ -57,4 +64,6 @@ export default function createMiddleware() {
 
   reactAdapter(middleware.actionHandler);
   return middleware;
-}
+};
+
+export default createMiddleware;

@@ -4,7 +4,14 @@ import { ActionType } from '../listenerMiddleware';
 import getUniqueHash from '../utills/generateUniqueId';
 import { Adapter } from './adapter';
 
-const useActionListener = (
+export interface UseActionListener {
+  (
+    actionName: ActionType,
+    cb: (dispatch?: Dispatch, action?: AnyAction) => void
+  ): void;
+}
+
+const useActionListener: UseActionListener = (
   actionName: ActionType,
   cb: (dispatch?: Dispatch, action?: AnyAction) => void
 ) => {
