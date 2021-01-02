@@ -7,12 +7,20 @@
 
 > Redux middleware hook which allows listening action and handling of dispatched actions
 
-### ✨ [Demo](https://codesandbox.io/s/redux-action-listener-hook-counter-example-0dti5?file=/src/reducer.ts)
-
 ## Usage
 
 ```ts
-import useActionListener from 'redux-action-listener-hook';
+// 1. Register middleware
+import { createMiddleware } from 'redux-action-listener-hook';
+
+export const store = createStore(
+  reduce,
+  {},
+  applyMiddleware(createMiddleware(), thunk)
+);
+
+// 2. use hook
+import { useActionListener } from 'redux-action-listener-hook';
 
 const onClickPlus = () => {
   // When button is clicked an action 'ADD' is dispatched.
@@ -34,10 +42,17 @@ return <button onClick={onClickPlus}>add</button>;
 npm i redux-action-listener-hook
 ```
 
+## Links
+
+- [Motivation]()
+- [Video tutorial]()
+- Examples
+  - [Counters](https://codesandbox.io/s/redux-action-listener-hook-counter-example-0dti5?file=/src/reducer.ts)
+
 ## Run tests
 
 ```sh
-npm run test
+npm test
 ```
 
 ## Author
@@ -46,7 +61,6 @@ npm run test
 
 - Website: https://github.com/qkreltms
 - Github: [@qkreltms](https://github.com/qkreltms)
-- LinkedIn: [@JungHoon Park](https://linkedin.com/in/JungHoon Park)
 
 ## 🤝 Contributing
 
