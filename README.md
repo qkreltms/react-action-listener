@@ -24,7 +24,7 @@ import { useActionListener } from 'redux-action-listener-hook';
 
 const onClickPlus = () => {
   // When button is clicked an action 'ADD' is dispatched.
-  dispatch({ type: 'ADD' });
+  dispatch({ type: 'ADD', payload: 1 });
 };
 
 useActionListener('ADD', (dispatch, action) => {
