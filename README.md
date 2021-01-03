@@ -28,7 +28,7 @@ const onClickPlus = () => {
 };
 
 useActionListener('ADD', (dispatch, action) => {
-  // Now you can listen 'ADD'
+  // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);
 });
