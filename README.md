@@ -20,7 +20,6 @@ export const store = createStore(
 );
 
 // 2. use hook
-import { useActionListener } from 'redux-action-listener-hook';
 
 const onClickPlus = () => {
   // When button is clicked an action 'ADD' is dispatched.
