@@ -11,7 +11,7 @@
 
 ```ts
 // 1. Register middleware
-import { createMiddleware } from 'redux-action-listener-hook';
+import { createMiddleware, useActionListener } from 'redux-action-listener-hook';
 
 export const store = createStore(
   reduce,
