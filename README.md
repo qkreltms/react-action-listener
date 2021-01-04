@@ -19,12 +19,12 @@ export const store = createStore(
   applyMiddleware(createMiddleware())
 );
 
-// 2. use hook
 const onClickPlus = () => {
   // When button is clicked an action 'ADD' is dispatched.
   dispatch({ type: 'ADD', payload: 1 });
 };
 
+// 2. use hook
 useActionListener('ADD', (dispatch, action) => {
   // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
