@@ -1,17 +1,17 @@
-# Welcome to redux-action-listener-hook 👋
+# react-action-listener
 
-[![Version](https://img.shields.io/npm/v/redux-action-listener-hook.svg)](https://www.npmjs.com/package/redux-action-listener-hook)
-[![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/qkreltms/redux-action-listener-hook#readme)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/qkreltms/redux-action-listener-hook/graphs/commit-activity)
-[![License: MIT](https://img.shields.io/github/license/qkreltms/redux-action-listener-hook)](https://github.com/qkreltms/redux-action-listener-hook/blob/master/LICENSE)
+[![Version](https://img.shields.io/npm/v/react-action-listener.svg)](https://www.npmjs.com/package/react-action-listener)
+[![License: MIT](https://img.shields.io/github/license/qkreltms/react-action-listener)](https://github.com/qkreltms/react-action-listener/blob/master/LICENSE)
 
-> Redux middleware hook which allows listening action and handling of dispatched actions
+> Middleware which allows listening actions of Context and Redux
+
+<img width='150px' src="./imgs/Observer_SC2_Head1.jpg"/>
 
 ## Usage
 
 ```ts
 // 1. Register middleware
-import { createMiddleware, useActionListener } from 'redux-action-listener-hook';
+import { createMiddleware, useActionListener } from 'react-action-listener';
 
 export const store = createStore(
   reduce,
@@ -37,7 +37,7 @@ return <button onClick={onClickPlus}>add</button>;
 ## Install
 
 ```sh
-npm i redux-action-listener-hook
+npm i react-action-listener
 ```
 
 ## Links
@@ -45,7 +45,7 @@ npm i redux-action-listener-hook
 - [Motivation]()
 - [Video tutorial]()
 - Examples
-  - [Counters](https://codesandbox.io/s/redux-action-listener-hook-counter-example-0dti5?file=/src/reducer.ts)
+  - [Counters](https://codesandbox.io/s/react-action-listener-counter-example-0dti5?file=/src/reducer.ts)
 
 ## Run tests
 
@@ -53,28 +53,29 @@ npm i redux-action-listener-hook
 npm test
 ```
 
-## Author
-
-👤 **Jeong Hoon Park**
-
-- Website: https://github.com/qkreltms
-- Github: [@qkreltms](https://github.com/qkreltms)
-
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check [issues page](https://github.com/qkreltms/redux-action-listener-hook/issues). You can also take a look at the [contributing guide](https://github.com/qkreltms/redux-action-listener-hook/blob/master/CONTRIBUTING.md).
+Feel free to check [issues page](https://github.com/qkreltms/react-action-listener/issues). You can also take a look at the [contributing guide](https://github.com/qkreltms/react-action-listener/blob/master/CONTRIBUTING.md).
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
 
+## Author
+
+👤 **Jeong Hoon Park**
+
+## Contributors
+
+<br/>
+
 ## 📝 License
 
 Copyright © 2021 [Jeong Hoon Park](https://github.com/qkreltms).
 
-This project is [MIT](https://github.com/qkreltms/redux-action-listener-hook/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/qkreltms/react-action-listener/blob/master/LICENSE) licensed.
 
 ---
 
