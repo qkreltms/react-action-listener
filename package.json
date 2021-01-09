@@ -1,7 +1,7 @@
 {
-  "name": "redux-action-listener-hook",
-  "version": "1.0.4",
-  "description": "Redux middleware hook which allows listening action and handling of dispatched actions",
+  "name": "react-action-listener",
+  "version": "1.0.5",
+  "description": "Middleware which allows listening actions of Context and Redux",
   "main": "lib",
   "files": [
     "lib",
@@ -36,17 +36,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qkreltms/redux-action-listener-hook"
+    "url": "git+https://github.com/qkreltms/react-action-listener"
   },
   "keywords": [
-    "redux",
     "action-middleware",
-    "listeners",
-    "listener-middleware",
     "middleware",
+    "listener-middleware",
+    "listeners",
+    "redux",
     "redux-middleware",
-    "redux-action-listener-hook",
-    "redux-hook"
+    "react-action-listener",
+    "react-hook"
   ],
   "author": {
     "name": "Jeong Hoon Park",
@@ -56,9 +56,9 @@
   "contributors": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/qkreltms/redux-action-listener-hook/issues"
+    "url": "https://github.com/qkreltms/react-action-listener/issues"
   },
-  "homepage": "https://github.com/qkreltms/redux-action-listener-hook#readme",
+  "homepage": "https://github.com/qkreltms/react-action-listener#readme",
   "dependencies": {
     "@types/react": "^17.0.0",
     "react": "^17.0.1",
