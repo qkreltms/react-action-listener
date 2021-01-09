@@ -1,5 +1,6 @@
 import { ActionHandler } from '../listenerMiddleware';
 
+// TODO: provide adapter by using provider
 export class Adapter {
   static actionHandler: ActionHandler | undefined;
 }

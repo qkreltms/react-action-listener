@@ -7,22 +7,39 @@
 
 <img width='150px' src="./imgs/Observer_SC2_Head1.jpg"/>
 
-## Usage
+## Usages
+
+### replacement of `redux-saga`
 
 ```ts
 // 1. Register middleware
-import { createMiddleware, useActionListener } from 'react-action-listener';
+import { createMiddleware, addListener } from 'react-action-listener';
 
-export const store = createStore(
-  reduce,
-  {},
-  applyMiddleware(createMiddleware())
-);
+const listener = createMiddleware();
+const store = createStore(reduce, {}, applyMiddleware(listener);
+
+// 2. register listener
+listener.addListener((dispatch, action) => {
+  // Now you can listen 'ADD' when button is pressed.
+  // {"type":"ADD","payload":1}
+  console.log(`${JSON.stringify(action)}`);
+});
 
 const onClickPlus = () => {
   // When button is clicked an action 'ADD' is dispatched.
   dispatch({ type: 'ADD', payload: 1 });
 };
+
+return <button onClick={onClickPlus}>add</button>;
+```
+
+### hook
+
+```ts
+// 1. Register middleware
+import { createMiddleware, useActionListener } from 'react-action-listener';
+
+const store = createStore(reduce, {}, applyMiddleware(createMiddleware()));
 
 // 2. use hook
 useActionListener('ADD', (dispatch, action) => {
@@ -30,6 +47,11 @@ useActionListener('ADD', (dispatch, action) => {
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);
 });
+
+const onClickPlus = () => {
+  // When button is clicked an action 'ADD' is dispatched.
+  dispatch({ type: 'ADD', payload: 1 });
+};
 
 return <button onClick={onClickPlus}>add</button>;
 ```
@@ -45,7 +67,8 @@ npm i react-action-listener
 - [Motivation]()
 - [Video tutorial]()
 - Examples
-  - [Counters](https://codesandbox.io/s/react-action-listener-counter-example-0dti5?file=/src/reducer.ts)
+  - [Counters](https://codesandbox.io/s/react-action-listener-5we8j?file=/src/reducer.ts)
+  - [Counters (hook)](https://codesandbox.io/s/react-action-listener-counter-example-0dti5?file=/src/reducer.ts)
 
 ## Run tests
 

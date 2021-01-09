@@ -1,6 +1,6 @@
 {
   "name": "react-action-listener",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "Middleware which allows listening actions of Context and Redux",
   "main": "lib",
   "files": [
@@ -18,10 +18,13 @@
     "clean": "rimraf lib coverage",
     "build:p": "tsc --declarationDir lib --emitDeclarationOnly",
     "build": "babel src --out-dir lib --extensions \".ts,.tsx,js,jsx\" && yarn build:p",
-    "test": "jest --watch",
+    "test": "jest",
+    "test:w": "yarn test --watch",
     "test:c": "jest --coverage",
     "lint": "eslint --ext js,ts,jsx,tsx src test",
-    "lint:p": "prettier --write \"{src,test}/**/*.{js,ts}\" \"**/*.md\""
+    "lint:p": "prettier --write \"{src,test}/**/*.{js,ts}\" \"**/*.md\"",
+    "prepublishOnly": "yarn test && yarn lint && yarn lint:p",
+    "prepare": "yarn build"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
