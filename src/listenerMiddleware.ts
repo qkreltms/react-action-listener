@@ -1,5 +1,6 @@
 import { AnyAction, Dispatch, Store } from 'redux';
 import reactAdapter from './react/adapter';
+import getUniqueHash from './utills/generateUniqueId';
 
 export type ActionType = string | Array<string>;
 interface Listener {
@@ -25,8 +26,10 @@ export class ActionHandler {
     delete this.listeners[hash];
   };
 }
-export interface ListenerStore extends ActionHandler {
+export interface ListenerStore
+  extends Omit<ActionHandler, 'addListener' | 'removeListener'> {
   actionHandler: ActionHandler;
+  addListener: (type: ActionType, listener: Listener) => void;
   (store: Store): (next: Dispatch<AnyAction>) => (action: any) => void;
 }
 export interface CreateMiddleware {
@@ -58,8 +61,10 @@ const createMiddleware: CreateMiddleware = () => {
   };
 
   middleware.listeners = actionHandler.listeners;
-  middleware.addListener = actionHandler.addListener;
-  middleware.removeListener = actionHandler.removeListener;
+  middleware.addListener = (type: ActionType, listener: Listener) => {
+    const hash = getUniqueHash();
+    actionHandler.addListener(hash, type, listener);
+  };
   middleware.actionHandler = actionHandler;
 
   reactAdapter(middleware.actionHandler);
