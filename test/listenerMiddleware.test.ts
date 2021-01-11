@@ -2,6 +2,10 @@ import { createStore } from 'redux';
 import { createMiddleware } from '../src';
 import { ActionHandler } from '../src/listenerMiddleware';
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 const mockNext = (dispatch) => dispatch;
 const mockStore = createStore((state, action) => state);
 
@@ -12,6 +16,12 @@ test('Should create middleware and check types', () => {
   expect(typeof listenMiddleware.addListener).toBe('function');
   expect(typeof listenMiddleware.actionHandler).toBe('object');
   expect(listenMiddleware.actionHandler instanceof ActionHandler).toBe(true);
+  expect(
+    listenMiddleware.listeners === listenMiddleware.actionHandler.listeners
+  ).toBe(true);
+  expect(
+    listenMiddleware.cleanup === listenMiddleware.actionHandler.cleanup
+  ).toBe(true);
 });
 
 test('Should allow multiple listeners', () => {
@@ -66,7 +76,7 @@ test('Should dispatch an action in other listener', () => {
 
   let increment = 0;
 
-  listenMiddleware.addListener('TEST', (dispatch) => {
+  listenMiddleware.addListener('TEST', (action, dispatch) => {
     expect(increment).toBe(0);
 
     increment += 1;
@@ -84,9 +94,27 @@ test('Should dispatch an action in other listener', () => {
     },
   };
 
-  const next: any = () => expect(increment).toBe(2);
+  const next: any = () => expect(increment).toBe(1);
 
   const middleware = listenMiddleware(dispatchableStore)(next);
 
   middleware({ type: 'TEST' });
+});
+
+test('Should read payload of action', () => {
+  const listenMiddleware = createMiddleware();
+  listenMiddleware.addListener('TEST', (action) => {
+    expect(action.payload).toBe(1);
+  });
+
+  const middleware = listenMiddleware(mockStore)(mockNext);
+  middleware({ type: 'TEST', payload: 1 });
+});
+
+test('Should cleanup', () => {
+  const listenMiddleware = createMiddleware();
+  listenMiddleware.addListener('TEST', (action) => {});
+
+  listenMiddleware.cleanup();
+  expect(Object.keys(listenMiddleware.listeners).length).toBe(0);
 });

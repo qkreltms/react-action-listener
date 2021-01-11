@@ -9,16 +9,16 @@
 
 ## Usages
 
-### replacement of `redux-saga`
+### Much like `redux-saga`
 
 ```ts
-// 1. Register middleware
-import { createMiddleware, addListener } from 'react-action-listener';
+import { createMiddleware } from 'react-action-listener';
 
 const listener = createMiddleware();
+// 1. Apply middleware
 const store = createStore(reduce, {}, applyMiddleware(listener);
 
-// 2. register listener
+// 2. Register listener
 listener.addListener((dispatch, action) => {
   // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
@@ -33,15 +33,14 @@ const onClickPlus = () => {
 return <button onClick={onClickPlus}>add</button>;
 ```
 
-### hook
+### Hook
 
 ```ts
-// 1. Register middleware
 import { createMiddleware, useActionListener } from 'react-action-listener';
-
+// 1. Apply middleware
 const store = createStore(reduce, {}, applyMiddleware(createMiddleware()));
 
-// 2. use hook
+// 2. Use hook
 useActionListener('ADD', (dispatch, action) => {
   // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
@@ -60,6 +59,7 @@ return <button onClick={onClickPlus}>add</button>;
 
 ```sh
 npm i react-action-listener
+yarn add react-action-listener
 ```
 
 ## Links
@@ -70,28 +70,15 @@ npm i react-action-listener
   - [Counters](https://codesandbox.io/s/react-action-listener-5we8j?file=/src/reducer.ts)
   - [Counters (hook)](https://codesandbox.io/s/react-action-listener-counter-example-0dti5?file=/src/reducer.ts)
 
-## Run tests
-
-```sh
-npm test
-```
-
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!
 
 Feel free to check [issues page](https://github.com/qkreltms/react-action-listener/issues). You can also take a look at the [contributing guide](https://github.com/qkreltms/react-action-listener/blob/master/CONTRIBUTING.md).
 
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-## Author
-
-👤 **Jeong Hoon Park**
-
 ## Contributors
 
+👤 **Jeong Hoon Park**
 <br/>
 
 ## 📝 License
@@ -101,5 +88,3 @@ Copyright © 2021 [Jeong Hoon Park](https://github.com/qkreltms).
 This project is [MIT](https://github.com/qkreltms/react-action-listener/blob/master/LICENSE) licensed.
 
 ---
-
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

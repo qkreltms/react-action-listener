@@ -1,20 +1,18 @@
 import React, { useEffect, useRef } from 'react';
-import { AnyAction, Dispatch } from 'redux';
-import { ActionType } from '../listenerMiddleware';
+import { AnyAction } from 'redux';
+import {
+  ContextListener,
+  Listener,
+  ListenerActionType,
+} from '../listenerMiddleware';
 import getUniqueHash from '../utills/generateUniqueId';
 import { Adapter } from './adapter';
 
 export interface UseActionListener {
-  (
-    actionName: ActionType,
-    cb: (dispatch?: Dispatch, action?: AnyAction) => void
-  ): void;
+  (actionName: ListenerActionType, cb: Listener | ContextListener): void;
 }
 
-const useActionListener: UseActionListener = (
-  actionName: ActionType,
-  cb: (dispatch?: Dispatch, action?: AnyAction) => void
-) => {
+const useActionListener: UseActionListener = (actionName, cb) => {
   const cbRef = useRef(cb);
   const hash = getUniqueHash();
   const { actionHandler } = Adapter;
@@ -29,8 +27,8 @@ const useActionListener: UseActionListener = (
   });
 
   useEffect(() => {
-    actionHandler?.addListener(hash, actionName, (dispatch, action) => {
-      cbRef.current(dispatch, action);
+    actionHandler?.addListener(hash, actionName, (action, dispatch) => {
+      cbRef.current(action, dispatch);
     });
     return () => {
       actionHandler?.removeListener(hash);
