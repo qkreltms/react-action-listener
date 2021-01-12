@@ -11,7 +11,10 @@ import {
   Counter,
   CounterWithHook,
   CounterWithHookAndDispatch,
-} from './context/components/Counter';
+} from './context/components/MiddlewareOnReducerCounter';
+import {
+  CounterWithHookAndDispatch2,
+} from './context/components/MiddlewareBeforeDispatchCounter';
 import middleware from './context/middleware';
 
 beforeAll(() => {});
@@ -88,11 +91,31 @@ test('Should use dispatch in listener', async () => {
   const cntButton = screen.getByTestId('cnt');
   fireEvent.click(cntButton);
   expect(spy).toBeCalledTimes(2);
-  // NOTE: dispatching an action in reducer seems ANTI-PATTERN (not official)
-  // (https://stackoverflow.com/questions/36730793/can-i-dispatch-an-action-in-reducer/65662579#65662579)
+  // NOTE: dispatching an action in reducer is ANTI-PATTERN (https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects)
   // At first INCREASE is dispatched and sets cnt to 1
   // Next SUB is dispatched and sets cnt to 0 becuase we wrapped substract with setTimeout
   // wait for these async change
+  await waitFor(() => {
+    expect(screen.getByText('0')).toBeDefined();
+  });
+});
+
+test('Should use dispatch in listener', async () => {
+  const spy = jest.spyOn(middleware.actionHandler, 'addListener');
+  middleware.addListener('SUB', (action) => {
+    expect(action.payload).toBe(1);
+  });
+
+  render(
+    <CounterProvider>
+      <CounterWithHookAndDispatch2 />
+    </CounterProvider>
+  );
+
+  expect(Object.keys(middleware.listeners).length).toBe(2);
+  const cntButton = screen.getByTestId('cnt');
+  fireEvent.click(cntButton);
+  expect(spy).toBeCalledTimes(2);
   await waitFor(() => {
     expect(screen.getByText('0')).toBeDefined();
   });
