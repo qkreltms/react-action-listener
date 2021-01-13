@@ -37,10 +37,10 @@ return <button onClick={onClickPlus}>add</button>;
 
 ```ts
 import { createMiddleware, useActionListener } from 'react-action-listener';
-// 1. Apply middleware
+// 1. Apply global middleware.
 const store = createStore(reduce, {}, applyMiddleware(createMiddleware()));
 
-// 2. Use hook
+// 2. Use hook.
 useActionListener('ADD', (dispatch, action) => {
   // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
@@ -53,6 +53,47 @@ const onClickPlus = () => {
 };
 
 return <button onClick={onClickPlus}>add</button>;
+```
+
+### Context
+
+```ts
+import { createMiddleware } from 'react-action-listener';
+
+function increaseAction(dispatch: Dispatch<AnyAction>) {
+  const action = {
+    type: 'INCREASE',
+    payload: 1,
+  };
+
+  // 1. Apply middleware.
+  middleware(action);
+  dispatch(action);
+}
+
+// 2. Use hook.
+// Note: when you use Context, dispatch is not provided as parameter.
+useActionListener('INCREASE', (action) => {
+  // {"type":"ADD","payload":1}
+});
+```
+
+### Hybrid
+
+You can also use both hook and much like `redux-saga`
+
+```ts
+import { createMiddleware } from 'react-action-listener';
+// 1. Apply global middleware.
+const listenMiddleware = createMiddleware();
+
+useActionListener('TEST', (action) => {
+  //...
+});
+
+listenMiddleware.addListener('TEST', (action) => {
+  // ...
+});
 ```
 
 ## Install
@@ -69,6 +110,7 @@ yarn add react-action-listener
 - Examples
   - [Counters](https://codesandbox.io/s/react-action-listener-5we8j?file=/src/reducer.ts)
   - [Counters (hook)](https://codesandbox.io/s/react-action-listener-counter-example-0dti5?file=/src/reducer.ts)
+  - [Counters (Context)]()
 
 ## 🤝 Contributing
 
