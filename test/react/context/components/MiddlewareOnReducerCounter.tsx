@@ -102,8 +102,8 @@ export function CounterWithHook() {
 
 export function CounterWithHookAndDispatch() {
   const { cnt, increase, substract } = useContext(CounterContext);
-  useActionListener('INCREASE', (action, dispatch) => {
-    dispatch(() => substract());
+  useActionListener('INCREASE', (action) => {
+    setTimeout(() => substract(), 0);
   });
 
   return (

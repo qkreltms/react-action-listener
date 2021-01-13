@@ -1,15 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { AnyAction } from 'redux';
-import {
-  ContextListener,
-  Listener,
-  ListenerActionType,
-} from '../listenerMiddleware';
+import { Listener, ListenerActionType } from '../listenerMiddleware';
 import getUniqueHash from '../utills/generateUniqueId';
 import { Adapter } from './adapter';
 
 export interface UseActionListener {
-  (actionName: ListenerActionType, cb: Listener | ContextListener): void;
+  (actionName: ListenerActionType, cb: Listener): void;
 }
 
 const useActionListener: UseActionListener = (actionName, cb) => {

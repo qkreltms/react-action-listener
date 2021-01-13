@@ -14,12 +14,9 @@ export interface Listener {
   // eslint-disable-next-line no-shadow
   (action?: AnyAction, dispatch?: (action: AnyAction) => void): void;
 }
-export interface ContextListener {
-  (action?: AnyAction, dispatch?: (cb: () => void) => void): void;
-}
 interface ListenerTemplate {
   type: ListenerActionType;
-  listener: Listener | ContextListener;
+  listener: Listener;
 }
 
 export class ActionHandler {
@@ -51,10 +48,7 @@ export class ActionHandler {
 export interface ListenerStore
   extends Omit<ActionHandler, 'addListener' | 'removeListener'> {
   actionHandler: ActionHandler;
-  addListener: (
-    type: ListenerActionType,
-    listener: Listener | ContextListener
-  ) => void;
+  addListener: (type: ListenerActionType, listener: Listener) => void;
   (store: Store): (
     next: Dispatch<AnyAction>
   ) => (action: DispatchedActionWithType) => void;
@@ -70,9 +64,6 @@ export interface CreateMiddleware {
 
 const createMiddleware: CreateMiddleware = (config) => {
   const actionHandler = new ActionHandler();
-  const dispatchImmediateForContext = (cb: () => void) => {
-    setTimeout(() => cb(), 0);
-  };
 
   const middleware: any = config?.isContext
     ? (action: DispatchedActionWithType) => {
@@ -89,9 +80,7 @@ const createMiddleware: CreateMiddleware = (config) => {
 
             return false;
           })
-          .map((listener) =>
-            listener.listener(action, dispatchImmediateForContext)
-          );
+          .map((listener) => listener.listener(action));
       }
     : (store: Store) => {
         // TODO: describe this on docs
