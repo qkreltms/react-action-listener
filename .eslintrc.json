@@ -23,8 +23,13 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
     "no-unused-vars": "off",
     "import/extensions": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-use-before-define": "off"
   }
 }
