@@ -74,39 +74,9 @@ export function CounterProvider({ children }: { children: any }) {
   );
 }
 
-export function Counter2() {
-  const { cnt, increase, substract } = useContext(CounterContext);
-  return (
-    <>
-      <button type="button" onClick={() => increase()} data-testid="cnt">
-        {cnt}
-      </button>
-      <button type="button" onClick={() => substract()} data-testid="sub">
-        sub
-      </button>
-    </>
-  );
-}
-
-export function CounterWithHook2() {
-  const { cnt, increase, substract } = useContext(CounterContext);
-  useActionListener('INCREASE', (action) => {});
-
-  return (
-    <>
-      <button type="button" onClick={() => increase()} data-testid="cnt">
-        {cnt}
-      </button>
-      <button type="button" onClick={() => substract()} data-testid="sub">
-        sub
-      </button>
-    </>
-  );
-}
-
 export function CounterWithHookAndDispatch2() {
   const { cnt, increase, substract } = useContext(CounterContext);
-  useActionListener('INCREASE', (action, dispatch) => {
+  useActionListener('INCREASE', (action) => {
     substract();
   });
 
