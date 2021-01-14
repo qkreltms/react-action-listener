@@ -86,6 +86,7 @@ function increaseAction(dispatch) {
 // Note: when you use Context, dispatch is not provided as parameter.
 useActionListener('ADD', (action) => {
   // {"type":"ADD","payload":1}
+  console.log(`${JSON.stringify(action)}`);
 });
 ```
 
