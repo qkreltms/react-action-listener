@@ -15,11 +15,11 @@
 import { createMiddleware } from 'react-action-listener';
 
 const listener = createMiddleware();
-// 1. Apply middleware
+// 1. Apply middleware.
 const store = createStore(reduce, {}, applyMiddleware(listener);
 
-// 2. Register listener
-listener.addListener((dispatch, action) => {
+// 2. Register listener.
+listener.addListener((action, dispatch) => {
   // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);
@@ -41,7 +41,7 @@ import { createMiddleware, useActionListener } from 'react-action-listener';
 const store = createStore(reduce, {}, applyMiddleware(createMiddleware()));
 
 // 2. Use hook.
-useActionListener('ADD', (dispatch, action) => {
+useActionListener('ADD', (action, dispatch) => {
   // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);

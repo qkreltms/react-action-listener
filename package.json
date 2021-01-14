@@ -1,6 +1,6 @@
 {
   "name": "react-action-listener",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Middleware which allows listening actions of Context and Redux",
   "main": "lib",
   "files": [
@@ -17,7 +17,7 @@
     "type:w": "yarn type --watch",
     "clean": "rimraf lib coverage",
     "build:p": "tsc --declarationDir lib --emitDeclarationOnly",
-    "build": "babel src --out-dir lib --extensions \".ts,.tsx,js,jsx\" && yarn build:p",
+    "build": "yarn clean && babel src --out-dir lib --extensions \".ts,.tsx,js,jsx\" && yarn build:p",
     "test": "jest",
     "test:w": "yarn test --watch",
     "test:c": "jest --coverage",
