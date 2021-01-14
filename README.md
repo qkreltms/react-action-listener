@@ -58,7 +58,7 @@ return <button onClick={onClickPlus}>add</button>;
 ### Context
 
 ```ts
-import { createMiddleware } from 'react-action-listener';
+import { createMiddleware, useActionListener } from 'react-action-listener';
 // Note: you must provide config.isContext = true
 const middleware = createMiddleware({ isContext: true });
 
@@ -87,7 +87,7 @@ useActionListener('ADD', (action) => {
 You can also mix up.
 
 ```ts
-import { createMiddleware } from 'react-action-listener';
+import { createMiddleware, useActionListener } from 'react-action-listener';
 // 1. Apply global middleware.
 const middleware = createMiddleware();
 
