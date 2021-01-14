@@ -14,12 +14,12 @@
 ```ts
 import { createMiddleware } from 'react-action-listener';
 
-const listener = createMiddleware();
-// 1. Apply middleware
-const store = createStore(reduce, {}, applyMiddleware(listener);
+const middleware = createMiddleware();
+// 1. Apply middleware.
+const store = createStore(reduce, {}, applyMiddleware(middleware);
 
-// 2. Register listener
-listener.addListener((dispatch, action) => {
+// 2. Register listener.
+middleware.addListener((action, dispatch) => {
   // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);
@@ -41,7 +41,7 @@ import { createMiddleware, useActionListener } from 'react-action-listener';
 const store = createStore(reduce, {}, applyMiddleware(createMiddleware()));
 
 // 2. Use hook.
-useActionListener('ADD', (dispatch, action) => {
+useActionListener('ADD', (action, dispatch) => {
   // Now you can listen 'ADD' when button is pressed.
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);
@@ -59,10 +59,14 @@ return <button onClick={onClickPlus}>add</button>;
 
 ```ts
 import { createMiddleware } from 'react-action-listener';
+// Note: you must provide config.isContext = true
+const middleware = createMiddleware({ isContext: true });
 
-function increaseAction(dispatch: Dispatch<AnyAction>) {
+const [state, dispatch] = useReducer(counterReducer, initialValues);
+
+function increaseAction(dispatch) {
   const action = {
-    type: 'INCREASE',
+    type: 'ADD',
     payload: 1,
   };
 
@@ -73,25 +77,25 @@ function increaseAction(dispatch: Dispatch<AnyAction>) {
 
 // 2. Use hook.
 // Note: when you use Context, dispatch is not provided as parameter.
-useActionListener('INCREASE', (action) => {
+useActionListener('ADD', (action) => {
   // {"type":"ADD","payload":1}
 });
 ```
 
 ### Hybrid
 
-You can also use both hook and much like `redux-saga`
+You can also mix up.
 
 ```ts
 import { createMiddleware } from 'react-action-listener';
 // 1. Apply global middleware.
-const listenMiddleware = createMiddleware();
+const middleware = createMiddleware();
 
-useActionListener('TEST', (action) => {
+useActionListener('ADD', (action, dispatch) => {
   //...
 });
 
-listenMiddleware.addListener('TEST', (action) => {
+middleware.addListener('ADD', (action, dispatch) => {
   // ...
 });
 ```
@@ -108,9 +112,12 @@ yarn add react-action-listener
 - [Motivation]()
 - [Video tutorial]()
 - Examples
+
   - [Counters](https://codesandbox.io/s/react-action-listener-5we8j?file=/src/reducer.ts)
   - [Counters (hook)](https://codesandbox.io/s/react-action-listener-counter-example-0dti5?file=/src/reducer.ts)
-  - [Counters (Context)]()
+  - [Counters (Context)](https://codesandbox.io/s/react-action-listener-context-s748z?file=/src/Counter.tsx)
+
+    See also [here](./examples)
 
 ## 🤝 Contributing
 
