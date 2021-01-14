@@ -7,6 +7,13 @@
 
 <img width='150px' src="./imgs/Observer_SC2_Head1.jpg"/>
 
+## Install
+
+```sh
+npm i react-action-listener
+yarn add react-action-listener
+```
+
 ## Usages
 
 ### Much like `redux-saga`
@@ -98,13 +105,6 @@ useActionListener('ADD', (action, dispatch) => {
 middleware.addListener('ADD', (action, dispatch) => {
   // ...
 });
-```
-
-## Install
-
-```sh
-npm i react-action-listener
-yarn add react-action-listener
 ```
 
 ## Links
