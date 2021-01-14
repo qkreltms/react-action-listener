@@ -34,7 +34,7 @@ middleware.addListener((action, dispatch) => {
 
 const onClickPlus = () => {
   // When button is clicked an action 'ADD' is dispatched.
-  dispatch({ type: 'ADD', payload: 1 });
+  store.dispatch({ type: 'ADD', payload: 1 });
 };
 
 return <button onClick={onClickPlus}>add</button>;
@@ -56,7 +56,7 @@ useActionListener('ADD', (action, dispatch) => {
 
 const onClickPlus = () => {
   // When button is clicked an action 'ADD' is dispatched.
-  dispatch({ type: 'ADD', payload: 1 });
+  store.dispatch({ type: 'ADD', payload: 1 });
 };
 
 return <button onClick={onClickPlus}>add</button>;
