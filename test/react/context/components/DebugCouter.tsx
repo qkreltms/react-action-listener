@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, Dispatch, useContext } from 'react';
 import { AnyAction } from 'redux';
 import { useActionListener } from '../../../../src';
-import middleware from '../middlewares/middleware';
+import middleware from '../middlewares/debugMiddleware';
 
 interface CounterState {
   cnt: number;
@@ -17,7 +17,6 @@ const counterReducer = (
   state: CounterState,
   action: AnyAction
 ): CounterState => {
-  middleware(action);
   switch (action.type) {
     case 'INCREASE':
       return {
@@ -35,16 +34,21 @@ const counterReducer = (
 };
 
 function increaseAction(dispatch: Dispatch<AnyAction>) {
-  dispatch({
+  const action = {
     type: 'INCREASE',
     payload: 1,
-  });
+  };
+
+  middleware(action);
+  dispatch(action);
 }
 function subAction(dispatch: Dispatch<AnyAction>) {
-  dispatch({
+  const action = {
     type: 'SUB',
     payload: 1,
-  });
+  };
+  middleware(action);
+  dispatch(action);
 }
 const initialValues: CounterState & CounterActions = {
   cnt: 0,
@@ -72,40 +76,6 @@ export function CounterProvider({ children }: { children: any }) {
 
 export function Counter() {
   const { cnt, increase, substract } = useContext(CounterContext);
-  return (
-    <>
-      <button type="button" onClick={() => increase()} data-testid="cnt">
-        {cnt}
-      </button>
-      <button type="button" onClick={() => substract()} data-testid="sub">
-        sub
-      </button>
-    </>
-  );
-}
-
-export function CounterWithHook() {
-  const { cnt, increase, substract } = useContext(CounterContext);
-  useActionListener('INCREASE', (action) => {});
-
-  return (
-    <>
-      <button type="button" onClick={() => increase()} data-testid="cnt">
-        {cnt}
-      </button>
-      <button type="button" onClick={() => substract()} data-testid="sub">
-        sub
-      </button>
-    </>
-  );
-}
-
-export function CounterWithHookAndDispatch() {
-  const { cnt, increase, substract } = useContext(CounterContext);
-  useActionListener('INCREASE', (action) => {
-    setTimeout(() => substract(), 0);
-  });
-
   return (
     <>
       <button type="button" onClick={() => increase()} data-testid="cnt">

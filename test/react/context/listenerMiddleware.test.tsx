@@ -11,9 +11,9 @@ import {
   Counter,
   CounterWithHook,
   CounterWithHookAndDispatch,
-} from './context/components/MiddlewareOnReducerCounter';
-import { CounterWithHookAndDispatch2 } from './context/components/MiddlewareBeforeDispatchCounter';
-import middleware from './context/middleware';
+} from './components/MiddlewareOnReducerCounter';
+import { CounterWithHookAndDispatch2 } from './components/MiddlewareBeforeDispatchCounter';
+import middleware from './middlewares/middleware';
 
 beforeAll(() => {});
 afterEach(() => {
