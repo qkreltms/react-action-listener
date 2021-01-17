@@ -1,6 +1,7 @@
 import { AnyAction, Dispatch, Store } from 'redux';
 import reactAdapter from './react/adapter';
 import getUniqueHash from './utills/generateUniqueId';
+import formatTime from './utills/time';
 
 export type ListenerActionType = string | Array<string>;
 export interface ListenerAction extends AnyAction {
@@ -56,7 +57,8 @@ export interface ListenerStore
 }
 
 interface MiddlewareConfig {
-  isContext: boolean;
+  isContext?: boolean;
+  isDebugContext?: boolean;
 }
 export interface CreateMiddleware {
   (config?: MiddlewareConfig): ListenerStore;
@@ -64,11 +66,24 @@ export interface CreateMiddleware {
 
 const createMiddleware: CreateMiddleware = (config) => {
   const actionHandler = new ActionHandler();
+  const timeStyles = `color: gray; font-weight: lighter;`;
+  const actionTitleStyles = `color: '#03A9F4'; font-weight: bold`;
 
   const middleware: any = config?.isContext
     ? (action: DispatchedActionWithType) => {
         Object.values(actionHandler.listeners)
           .filter(({ type }) => {
+            if (config.isDebugContext) {
+              const time = formatTime(new Date());
+              console.group();
+              console.log(`${action.type} %c@`, timeStyles, time);
+              console.log(
+                '%c action    ',
+                actionTitleStyles,
+                JSON.stringify(action)
+              );
+              console.groupEnd();
+            }
             if (type === action.type) {
               return true;
             }

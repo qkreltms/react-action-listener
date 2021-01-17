@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, Dispatch, useContext } from 'react';
 import { AnyAction } from 'redux';
 import { useActionListener } from '../../../../src';
-import middleware from '../middleware';
+import middleware from '../middlewares/middleware';
 
 interface CounterState {
   cnt: number;

@@ -66,8 +66,9 @@ return <button onClick={onClickPlus}>add</button>;
 
 ```ts
 import { createMiddleware, useActionListener } from 'react-action-listener';
-// Note: you must provide config.isContext = true;
-const middleware = createMiddleware({ isContext: true });
+// Note: you must provide config.isContext = true
+// You will able to see redux-logger style logs for dispatched action when you provide isDebugContext = true
+const middleware = createMiddleware({ isContext: true, isDebugContext: true });
 
 const [state, dispatch] = useReducer(counterReducer, initialValues);
 
