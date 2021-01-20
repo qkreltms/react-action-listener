@@ -98,9 +98,8 @@ const createMiddleware: CreateMiddleware = (config) => {
           .map((listener) => listener.listener(action));
       }
     : (store: Store) => {
-        // TODO: describe it on document.
-        // By using this function we can ensure
-        // othter action can be dispatched after the dispatching action is compeleted.
+        // By using this we can ensure anothter action in listener
+        // can be dispatched after the dispatching action is compeleted.
         const dispatchImmediate = (action: AnyAction) => {
           setTimeout(() => store.dispatch(action), 0);
         };

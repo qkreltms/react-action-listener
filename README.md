@@ -134,6 +134,7 @@ useActionListener(actionType, listener);
     - Dispatched action.
   - `dispatch: Dispatch<AnyAction>(action: AnyAction) => AnyAction`
     - Equals `store.dispatch`, but wrapped with setTimeout(() => {...}, 0)
+    - By using this we can ensure anothter action in listener can be dispatched after the dispatching action is compeleted.
     - Note: when you set `isContext: true`, dispatch will not provided as parameter.
 
 ## Links
