@@ -9,6 +9,10 @@ module.exports = {
     library: 'reactActionListener',
     globalObject: 'this',
   },
+  cache: true,
+  optimization: {
+    minimize: true,
+  },
   externals: {
     react: {
       root: 'React',
