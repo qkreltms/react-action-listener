@@ -17,6 +17,7 @@ Also, make sure to run the tests and lint the code before you commit your
 changes.
 
 ```sh
-npm run test
-npm run lint
+yarn test
+yarn lint
+yarn lint:p
 ```

@@ -3,9 +3,9 @@
 [![Version](https://img.shields.io/npm/v/react-action-listener.svg)](https://www.npmjs.com/package/react-action-listener)
 [![License: MIT](https://img.shields.io/github/license/qkreltms/react-action-listener)](https://github.com/qkreltms/react-action-listener/blob/master/LICENSE)
 
-> Middleware which allows listening actions of Context and Redux
-
 <img width='150px' src="./imgs/Observer_SC2_Head1.jpg"/>
+
+> Middleware, React hook which allows listening actions of Context or Redux
 
 ## Install
 
@@ -34,6 +34,7 @@ middleware.addListener((action, dispatch) => {
 
 const onClickPlus = () => {
   // When button is clicked an action 'ADD' is dispatched.
+  // Note: You must provide 'type'
   store.dispatch({ type: 'ADD', payload: 1 });
 };
 
@@ -84,7 +85,7 @@ function increaseAction(dispatch) {
 }
 
 // 2. Use hook.
-// Note: when you use Context, dispatch is not provided as parameter.
+// Note: when you use Context, dispatch will not provided as parameter.
 useActionListener('ADD', (action) => {
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);
@@ -109,10 +110,34 @@ middleware.addListener('ADD', (action, dispatch) => {
 });
 ```
 
+## API
+
+```js
+createMiddleware({ isContext, isDebugContext });
+```
+
+- `isContext: boolean`
+  - When you want to use middleware with Context you must provide this to `true`
+  - Note: You will not able to use middleware with Redux.
+- `isDebugContext: boolean`
+  - When you use middleware with Context, you can also logs dispatched actions by setting it `true`.
+
+```js
+useActionListener(actionType, listener);
+```
+
+- `actionType: string | string[]`
+  - The action type or an array of action types to match.
+- `listener: (action, dispatch) => void`
+  - The callback function which will be called when an action of specified types is dispatched.
+  - `action: object`
+    - Dispatched action.
+  - `dispatch: Dispatch<AnyAction>(action: AnyAction) => AnyAction`
+    - Equals `store.dispatch`, but wrapped with setTimeout(() => {...}, 0)
+    - Note: when you set `isContext: true`, dispatch will not provided as parameter.
+
 ## Links
 
-- [Motivation]()
-- [Video tutorial]()
 - Examples
 
   - [Counters](https://codesandbox.io/s/react-action-listener-5we8j?file=/src/reducer.ts)
@@ -121,7 +146,7 @@ middleware.addListener('ADD', (action, dispatch) => {
 
     See also [here](./examples)
 
-## 🤝 Contributing
+## Contributing
 
 Contributions, issues and feature requests are welcome!
 
@@ -129,10 +154,10 @@ Feel free to check [issues page](https://github.com/qkreltms/react-action-listen
 
 ## Contributors
 
-👤 **Jeong Hoon Park**
+**Jeong Hoon Park**
 <br/>
 
-## 📝 License
+## License
 
 Copyright © 2021 [Jeong Hoon Park](https://github.com/qkreltms).
 
