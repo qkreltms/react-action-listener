@@ -28,9 +28,9 @@ module.exports = {
     },
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json', '.tsx', '.jsx'],
+    extensions: ['.ts', '.js', '.tsx', '.jsx', '.json'],
     alias: {
-      // Needed when library is linked via `npm link` to app
+      // Use library's node_modules react even library is linked via `npm link`
       react: path.resolve('./node_modules/react'),
     },
   },
