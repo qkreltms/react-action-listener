@@ -3047,13 +3047,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-action-listener@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/react-action-listener/-/react-action-listener-1.2.3.tgz#6c338433f564d07cbb25fa86492a4743c508ad73"
-  integrity sha512-8bAlzpkBJveTTUbd8FKLXsBQiu+thVyjADxlPqGcjmGEpTlQaEh945UeMHMow3aWJB9Dq8lCTNNLV11QOd8+GQ==
+react-action-listener@1.2.4-beta.1:
+  version "1.2.4-beta.1"
+  resolved "https://registry.yarnpkg.com/react-action-listener/-/react-action-listener-1.2.4-beta.1.tgz#1216a821fb28f2612d1c93b32ac4cae4873b6b88"
+  integrity sha512-TF7DTvXgL0vwZMdZKWfkli7T1E2+Up8+LAH768D+vNR6j5mzMhvaXzPelPLtypx+ymSrUV8LurO/9vmMnp6TGQ==
   dependencies:
-    "@types/react" "^17.0.0"
-    react "^17.0.1"
     redux "^4.0.5"
 
 react-dom@^17.0.1:

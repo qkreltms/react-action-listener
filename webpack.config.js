@@ -29,10 +29,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js', '.tsx', '.jsx', '.json'],
-    alias: {
-      // Use library's node_modules react even library is linked via `npm link`
-      react: path.resolve('./node_modules/react'),
-    },
   },
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   module: {

@@ -1,6 +1,5 @@
 import React, { createContext, useReducer, Dispatch, useContext } from 'react';
 import { AnyAction } from 'redux';
-import { useActionListener } from '../../../../src';
 import middleware from '../middlewares/debugMiddleware';
 
 interface CounterState {
