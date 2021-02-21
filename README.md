@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/react-action-listener.svg)](https://www.npmjs.com/package/react-action-listener)
 [![License: MIT](https://img.shields.io/github/license/qkreltms/react-action-listener)](https://github.com/qkreltms/react-action-listener/blob/master/LICENSE)
 
-<img width='150px' src="./imgs/Observer_SC2_Head1.jpg"/>
+[<img src="https://user-images.githubusercontent.com/25196026/108624179-8cb45400-7486-11eb-9e1e-0a60967ffece.jpg" width="150"/>](Observer_SC2_Head1)
 
 > Middleware, React hook which allows listening actions of Context or Redux
 
