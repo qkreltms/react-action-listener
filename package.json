@@ -1,6 +1,6 @@
 {
   "name": "react-action-listener",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Middleware which allows listening actions of Context and Redux",
   "main": "lib",
   "files": [
