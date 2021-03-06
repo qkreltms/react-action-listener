@@ -7,6 +7,8 @@
 
 > Middleware, React hook which allows listening actions of Context or Redux
 
+![react-action-listener](https://user-images.githubusercontent.com/25196026/110212110-32cb7980-7edd-11eb-8a1d-8f8ff8df2a98.gif)
+
 ## Install
 
 ```sh
