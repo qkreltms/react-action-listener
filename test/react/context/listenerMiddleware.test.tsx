@@ -67,7 +67,7 @@ test('Should use as hybrid', async () => {
     </CounterProvider>
   );
 
-  expect(Object.keys(middleware.listeners).length).toBe(2);
+  expect(middleware.listeners.size).toBe(2);
   const cntButton = screen.getByTestId('cnt');
   fireEvent.click(cntButton);
   expect(spy).toBeCalledTimes(2);
@@ -85,7 +85,7 @@ test('Should use dispatch in listener', async () => {
     </CounterProvider>
   );
 
-  expect(Object.keys(middleware.listeners).length).toBe(2);
+  expect(middleware.listeners.size).toBe(2);
   const cntButton = screen.getByTestId('cnt');
   fireEvent.click(cntButton);
   expect(spy).toBeCalledTimes(2);
@@ -110,7 +110,7 @@ test('Should use dispatch in listener', async () => {
     </CounterProvider>
   );
 
-  expect(Object.keys(middleware.listeners).length).toBe(2);
+  expect(middleware.listeners.size).toBe(2);
   const cntButton = screen.getByTestId('cnt');
   fireEvent.click(cntButton);
   expect(spy).toBeCalledTimes(2);

@@ -64,9 +64,9 @@ test('Should remove first listener when component unmounted', () => {
 
   const middleware = listenMiddleware(mockStore)(mockNext);
   middleware({ type: 'TEST' });
-  expect(Object.keys(listenMiddleware.listeners).length).toBe(1);
+  expect(listenMiddleware.listeners.size).toBe(1);
   rerender({ action: 'OCCURS_UNMOUNT' });
-  expect(Object.keys(listenMiddleware.listeners).length).toBe(1);
+  expect(listenMiddleware.listeners.size).toBe(1);
 });
 
 test('Should register multiple listeners with same action name', () => {
@@ -85,7 +85,7 @@ test('Should register multiple listeners with same action name', () => {
 
   const middleware = listenMiddleware(mockStore)(mockNext);
   middleware({ type: 'TEST' });
-  expect(Object.keys(listenMiddleware.listeners).length).toBe(2);
+  expect(listenMiddleware.listeners.size).toBe(2);
 });
 
 test('Should register listener with action array', () => {
@@ -99,7 +99,7 @@ test('Should register listener with action array', () => {
 
   const middleware = listenMiddleware(mockStore)(mockNext);
   middleware({ type: 'TEST' });
-  expect(Object.keys(listenMiddleware.listeners).length).toBe(1);
+  expect(listenMiddleware.listeners.size).toBe(1);
   middleware({ type: 'ANOTHER' });
   expect(expect(cnt).toBe(2));
 });
@@ -159,7 +159,7 @@ test('Should be used as hybrid', () => {
   listenMiddleware.addListener('TEST', (action) => {
     expect(action.payload).toBe(1);
   });
-  expect(Object.keys(listenMiddleware.listeners).length).toBe(2);
+  expect(listenMiddleware.listeners.size).toBe(2);
 
   const middleware = listenMiddleware(mockStore)(mockNext);
   middleware({ type: 'TEST', payload: 1 });
