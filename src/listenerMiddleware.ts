@@ -11,20 +11,22 @@ export interface DispatchedActionWithType extends AnyAction {
   type: string;
 }
 
-export interface Listener {
-  // eslint-disable-next-line no-shadow
-  (action: AnyAction, dispatch?: (action: AnyAction) => void): void;
-}
+// eslint-disable-next-line no-shadow
+export type Listener = (
+  action: AnyAction,
+  dispatch?: (action: AnyAction) => void
+) => void;
+
 interface ListenerTemplate {
   type: ListenerActionType;
   listener: Listener;
 }
 
 export class ActionHandler {
-  public listeners: { [key: string]: ListenerTemplate };
+  public listeners: Map<string, ListenerTemplate>;
 
   constructor() {
-    this.listeners = {};
+    this.listeners = new Map();
   }
 
   addListener = (
@@ -32,18 +34,15 @@ export class ActionHandler {
     type: ListenerActionType,
     listener: Listener
   ) => {
-    this.listeners[hash] = { type, listener };
+    this.listeners.set(hash, { type, listener });
   };
 
   removeListener = (hash: string) => {
-    delete this.listeners[hash];
+    this.listeners.delete(hash);
   };
 
   cleanup = () => {
-    const keys = Object.keys(this.listeners);
-    for (let i = 0; i < keys.length; i += 1) {
-      delete this.listeners[keys[i]];
-    }
+    this.listeners.clear();
   };
 }
 export interface ListenerStore
@@ -71,8 +70,18 @@ const createMiddleware: CreateMiddleware = (config) => {
 
   const middleware: any = config?.isContext
     ? (action: DispatchedActionWithType) => {
-        Object.values(actionHandler.listeners)
-          .filter(({ type }) => {
+        actionHandler.listeners.forEach(({ type, listener }) => {
+          let flag = false;
+          if (type === action.type) {
+            flag = true;
+          }
+
+          // then check if listener type is array and has action.type
+          if (type.constructor === Array && type.indexOf(action.type) > -1) {
+            flag = true;
+          }
+          if (flag) {
+            listener(action);
             if (config.isDebugContext) {
               const time = formatTime(new Date());
               console.group();
@@ -84,18 +93,8 @@ const createMiddleware: CreateMiddleware = (config) => {
               );
               console.groupEnd();
             }
-            if (type === action.type) {
-              return true;
-            }
-
-            // then check if listener type is array and has action.type
-            if (type.constructor === Array && type.indexOf(action.type) > -1) {
-              return true;
-            }
-
-            return false;
-          })
-          .map((listener) => listener.listener(action));
+          }
+        });
       }
     : (store: Store) => {
         // By using this we can ensure anothter action in listener
@@ -106,23 +105,21 @@ const createMiddleware: CreateMiddleware = (config) => {
         return (next: Dispatch<AnyAction>) => (
           action: DispatchedActionWithType
         ) => {
-          Object.values(actionHandler.listeners)
-            .filter(({ type }) => {
-              if (type === action.type) {
-                return true;
-              }
+          actionHandler.listeners.forEach(({ type, listener }) => {
+            let flag = false;
+            if (type === action.type) {
+              flag = true;
+            }
 
-              // then check if listener type is array and has action.type
-              if (
-                type.constructor === Array &&
-                type.indexOf(action.type) > -1
-              ) {
-                return true;
-              }
+            // then check if listener type is array and has action.type
+            if (type.constructor === Array && type.indexOf(action.type) > -1) {
+              flag = true;
+            }
 
-              return false;
-            })
-            .map((listener) => listener.listener(action, dispatchImmediate));
+            if (flag) {
+              listener(action, dispatchImmediate);
+            }
+          });
 
           // continue middleware chain
           next(action);

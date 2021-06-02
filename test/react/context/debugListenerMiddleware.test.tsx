@@ -23,7 +23,10 @@ test('Should logs are called when isDebugContext = true', () => {
     </DebugCounterProvider>
   );
   const button = screen.getByTestId('cnt');
+  // This one should prints on console
   debugMiddleware.addListener('INCREASE', (action) => {});
+  // This one must not prints on console
+  debugMiddleware.addListener('SUB', (action) => {});
   fireEvent.click(button);
 
   expect(spy).toBeCalledTimes(2);
