@@ -11,9 +11,9 @@ export interface DispatchedActionWithType extends AnyAction {
   type: string;
 }
 
-// eslint-disable-next-line no-shadow
 export type Listener = (
   action: AnyAction,
+  // eslint-disable-next-line no-shadow
   dispatch?: (action: AnyAction) => void
 ) => void;
 
