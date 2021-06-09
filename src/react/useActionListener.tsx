@@ -9,6 +9,7 @@ export interface UseActionListener {
 
 const useActionListener: UseActionListener = (actionName, cb) => {
   const cbRef = useRef(cb);
+  // it only changes when actionName is changed not cb
   const hash = getUniqueHash();
   const { actionHandler } = Adapter;
   if (!actionHandler) {

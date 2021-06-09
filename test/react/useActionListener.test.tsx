@@ -52,6 +52,7 @@ test('Should apply latest callback', () => {
   middleware({ type: 'TEST' });
 
   expect(cnt).toBe(2);
+  expect(listenMiddleware.listeners.size).toBe(1)
 });
 
 test('Should remove first listener when component unmounted', () => {
