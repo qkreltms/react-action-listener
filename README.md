@@ -35,8 +35,8 @@ middleware.addListener((action, dispatch) => {
 });
 
 const onClickPlus = () => {
-  // When button is clicked an action 'ADD' is dispatched.
-  // Note: You must provide 'type'
+  // When the button is clicked, an action 'ADD' is dispatched.
+  // Note: You must provide property 'type'
   store.dispatch({ type: 'ADD', payload: 1 });
 };
 
@@ -52,13 +52,13 @@ const store = createStore(reduce, {}, applyMiddleware(createMiddleware()));
 
 // 2. Use hook.
 useActionListener('ADD', (action, dispatch) => {
-  // Now you can listen 'ADD' when button is pressed.
+  // Now you can listen 'ADD' when the button is pressed.
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);
 });
 
 const onClickPlus = () => {
-  // When button is clicked an action 'ADD' is dispatched.
+  // When the button is clicked, an action 'ADD' is dispatched.
   store.dispatch({ type: 'ADD', payload: 1 });
 };
 
@@ -70,7 +70,7 @@ return <button onClick={onClickPlus}>add</button>;
 ```ts
 import { createMiddleware, useActionListener } from 'react-action-listener';
 // Note: you must provide config.isContext = true
-// You will able to see redux-logger style logs for dispatched action when you provide isDebugContext = true
+// You will be able to see redux-logger style logs for dispatched action when you provide isDebugContext = true
 const middleware = createMiddleware({ isContext: true, isDebugContext: true });
 
 const [state, dispatch] = useReducer(counterReducer, initialValues);
@@ -87,7 +87,7 @@ function increaseAction(dispatch) {
 }
 
 // 2. Use hook.
-// Note: when you use Context, dispatch will not provided as parameter.
+// Note: when you use Context, dispatch will not be provided as parameter.
 useActionListener('ADD', (action) => {
   // {"type":"ADD","payload":1}
   console.log(`${JSON.stringify(action)}`);
@@ -120,9 +120,9 @@ createMiddleware({ isContext, isDebugContext });
 
 - `isContext: boolean`
   - When you want to use middleware with Context you must provide this to `true`
-  - Note: You will not able to use middleware with Redux.
+  - Note: You will not be able to use middleware with Redux.
 - `isDebugContext: boolean`
-  - When you use middleware with Context, you can also logs dispatched actions by setting it `true`.
+  - When you use middleware with Context, you can also log dispatched actions by setting it `true`.
 
 ```js
 useActionListener(actionType, listener);
@@ -135,9 +135,9 @@ useActionListener(actionType, listener);
   - `action: object`
     - Dispatched action.
   - `dispatch: Dispatch<AnyAction>(action: AnyAction) => AnyAction`
-    - Equals `store.dispatch`, but wrapped with setTimeout(() => {...}, 0)
-    - By using this you can ensure anothter action in listener can be dispatched after the dispatching action is compeleted.
-    - Note: when you set `isContext: true`, dispatch will not provided as parameter.
+    - Equals with `store.dispatch`, but wrapped with setTimeout(() => {...}, 0)
+    - By using this, you can ensure another action in listener can be dispatched as soon as the first dispatching action is completed.
+    - Note: when you set `isContext: true`, dispatch will not be provided as parameter.
 
 ## Links
 
