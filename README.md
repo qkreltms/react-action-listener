@@ -5,7 +5,7 @@
 
 [<img src="https://user-images.githubusercontent.com/25196026/108624179-8cb45400-7486-11eb-9e1e-0a60967ffece.jpg" width="150"/>](Observer_SC2_Head1)
 
-> Middleware, React hook which allows listening actions of Context or Redux
+> Middleware, React hook which allows making side effect and listening actions of Context or Redux
 
 ![react-action-listener](https://user-images.githubusercontent.com/25196026/110212110-32cb7980-7edd-11eb-8a1d-8f8ff8df2a98.gif)
 
@@ -148,6 +148,14 @@ useActionListener(actionType, listener);
   - [Counters (Context)](https://codesandbox.io/s/react-action-listener-context-s748z?file=/src/Counter.tsx)
 
     See also [here](./examples)
+
+## Purpose
+
+In 'redux-saga', to change the local state when an action is dispatched, it is necessary to change local state to globally using Redux, Context and etc. It becomes maintenance difficult if these kinds of works are repeated.
+
+To solve this problem I made 'redux-action-listener' by inheriting the work of [redux-listener](https://github.com/Gaya/redux-listeners). 
+
+You can make side effects and listening actions more simply and lightly than 'redux-saga'. Also, by providing a hook version, you don't have to move local state to global state.
 
 ## Contributing
 
