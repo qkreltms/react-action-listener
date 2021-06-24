@@ -7,7 +7,7 @@
 
 > Middleware, React hook which allows making side effect and listening actions of Context or Redux
 
-![react-action-listener](https://user-images.githubusercontent.com/25196026/110212110-32cb7980-7edd-11eb-8a1d-8f8ff8df2a98.gif)
+![react-action-listener](https://user-images.githubusercontent.com/25196026/123260477-9206d580-d530-11eb-8ac0-741d4260d4b4.gif)
 
 ## Motivation
 
