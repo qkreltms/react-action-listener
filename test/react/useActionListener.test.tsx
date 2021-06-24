@@ -90,7 +90,7 @@ test('Should remove first listener when action name is chagned and register new 
   middleware({ type: 'TEST' });
   // should be 1 because the action TEST is removed
   expect(cntForTest).toBe(1);
-  
+
   middleware({ type: 'CHANGE_ACTION' });
   // should be 1 because the CHANGE_ACTION is registed
   expect(cntForTest).toBe(1);
@@ -131,7 +131,7 @@ test('Should remove first listener when action list is chagned and register new 
   middleware({ type: 'TEST' });
   // should be 1 because the action TEST is removed
   expect(cntForTest).toBe(1);
-  
+
   middleware({ type: 'CHANGE_ACTION' });
   // should be 1 because the CHANGE_ACTION is registed
   expect(cntForTest).toBe(1);
