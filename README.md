@@ -11,7 +11,7 @@
 
 ## Motivation
 
-In 'redux-saga', to change the local state when an action is dispatched, it is necessary to change local state to globally using Redux, Context and etc. It becomes maintenance difficult if these kinds of works are repeated.
+In 'redux-saga', to change local state when an action is dispatched, it is necessary to change local state to globally using Redux, Context and etc. It becomes maintenance difficult if these kinds of works are repeated.
 
 To solve this problem I made 'redux-action-listener' by inheriting the work of [redux-listener](https://github.com/Gaya/redux-listeners). 
 
