@@ -165,7 +165,7 @@ Feel free to check [issues page](https://github.com/qkreltms/react-action-listen
 
 ## Contributors
 
-**Jeong Hoon Park**
+**Jung Hoon Park**
 <br/>
 
 ## License
