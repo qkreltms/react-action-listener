@@ -170,8 +170,6 @@ Feel free to check [issues page](https://github.com/qkreltms/react-action-listen
 
 ## License
 
-Copyright © 2021 [Jeong Hoon Park](https://github.com/qkreltms).
-
 This project is [MIT](https://github.com/qkreltms/react-action-listener/blob/master/LICENSE) licensed.
 
 ---
